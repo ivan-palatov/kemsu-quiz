@@ -17,6 +17,7 @@
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
+  name: 'base-button',
   props: {
     color: {
       type: String as PropType<'primary' | 'warning' | 'error'>,
@@ -29,7 +30,7 @@ export default defineComponent({
 
 <style lang="postcss">
 .btn {
-  @apply bg-transparent font-semibold py-2 px-4 border rounded mr-6;
+  @apply transition-colors duration-100 bg-transparent font-semibold py-2 px-4 border rounded;
 }
 
 .btn:hover {

@@ -15,13 +15,11 @@
       </router-link>
     </div>
   </div>
-  <div>
-    <router-view v-slot="{ Component }">
-      <transition mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </div>
+  <router-view v-slot="{ Component }">
+    <transition mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <style lang="scss">

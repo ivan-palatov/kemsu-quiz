@@ -20,7 +20,6 @@
         </template>
       </base-input>
     </div>
-
     <div class="flex justify-between">
       <base-button>Войти</base-button>
       <base-button>Зарегистрироваться</base-button>
@@ -34,6 +33,7 @@ import BaseInput from '@/components/BaseInput.vue'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
+  name: 'auth-view',
   components: { BaseInput, BaseButton },
   setup() {
     const name = ref('')
@@ -42,7 +42,6 @@ export default defineComponent({
 
     function togglePassword() {
       showPassword.value = !showPassword.value
-      console.log(name, password, showPassword)
     }
 
     return { password, name, showPassword, togglePassword }
