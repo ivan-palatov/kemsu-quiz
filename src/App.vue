@@ -5,19 +5,35 @@
     <router-link
       class="text-xl text-gray-100 font-bold text tracking-wider"
       to="/"
-      >Быстрый тест</router-link
-    >
+      >Быстрый тест
+    </router-link>
     <div>
       <router-link
         class="text-gray-100 tracking-wide text-base font-medium"
         to="/auth"
-        >Войти</router-link
-      >
+        >Войти
+      </router-link>
     </div>
   </div>
   <div>
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.v-enter-active {
+  transition: all 0.6s ease-in;
+}
+.v-leave-active {
+  transition: all 0.6s ease-out;
+}
+.v-enter,
+.v-leave-to {
+  transform: translateX(50px);
+  opacity: 0;
+}
+</style>
