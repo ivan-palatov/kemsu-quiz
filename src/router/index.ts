@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Auth from '../views/Auth.vue'
 import Home from '../views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -11,9 +10,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth,
-    // component: () =>
-    //   import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
+    component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
+  },
+  {
+    path: '/quiz/:id',
+    name: 'Quiz',
+    component: () => import(/* webpackChunkName: "quiz" */ '../views/Quiz.vue'),
   },
 ]
 

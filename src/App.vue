@@ -1,5 +1,5 @@
 <template>
-  <div
+  <nav
     class="w-screen bg-gray-900 h-12 sticky mb-8 flex justify-between items-center px-4"
   >
     <router-link
@@ -14,12 +14,14 @@
         >Войти
       </router-link>
     </div>
-  </div>
-  <router-view v-slot="{ Component }">
-    <transition mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  </nav>
+  <main>
+    <router-view v-slot="{ Component }">
+      <transition mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </main>
 </template>
 
 <style lang="scss">

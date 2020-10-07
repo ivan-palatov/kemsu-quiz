@@ -4,7 +4,7 @@
     <variant-checkbox
       v-model:checkbox="isChecked"
       label="X-Men: Legion"
-      :index="12"
+      :index="0"
     />
   </div>
 </template>

@@ -20,7 +20,7 @@
         :placeholder="placeholder ? placeholder : label"
         :value="input"
         @input="updateValue($event.target.value)"
-        class="relative w-full border rounded placeholder-gray-500 focus:border-blue-500 focus:outline-none py-2 pr-2 pl-12 text-gray-800"
+        class="relative w-full border rounded placeholder-gray-500 border-gray-600 focus:border-blue-500 focus:outline-none py-2 pr-2 pl-12 text-gray-800"
         :class="{ 'border-red-500': error, 'pr-12': hasTrailing }"
         v-bind="$attrs"
       />

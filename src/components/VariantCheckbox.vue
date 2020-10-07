@@ -1,6 +1,6 @@
 <template>
   <label
-    class="flex justify-start items-center cursor-pointer py-4 pl-2 pr-4 rounded w-full transition-colors duration-200"
+    class="flex justify-start items-center cursor-pointer py-4 pl-2 pr-4 rounded w-full transition-colors duration-200 select-none"
     :class="checkbox ? 'bg-green-500' : 'bg-gray-200'"
   >
     <div
