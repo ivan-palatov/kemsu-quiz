@@ -55,7 +55,6 @@ export const useQuizStore = defineStore({
           ...this.answers,
           [this.questions[this.questionIndex].id]: answer,
         },
-        questionIndex: this.questionIndex + 1,
       })
     },
     answerAll() {

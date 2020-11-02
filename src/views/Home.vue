@@ -7,7 +7,7 @@
       :key="quiz.id"
     >
       <router-link
-        class="text-lg font-semibold text-center"
+        class="text-lg font-semibold text-center no-underline"
         :to="'/quiz/' + quiz.uid"
       >
         {{ quiz.name }}

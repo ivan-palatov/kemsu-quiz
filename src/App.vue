@@ -3,13 +3,13 @@
     class="w-screen bg-gray-900 h-12 sticky mb-8 flex justify-between items-center px-4"
   >
     <router-link
-      class="text-xl text-gray-100 font-bold text tracking-wider"
+      class="text-xl text-gray-100 font-bold text tracking-wider no-underline"
       to="/"
       >Быстрый тест
     </router-link>
     <div>
       <router-link
-        class="text-gray-100 tracking-wide text-base font-medium"
+        class="text-gray-100 tracking-wide text-base font-medium no-underline"
         to="/auth"
         >Войти
       </router-link>

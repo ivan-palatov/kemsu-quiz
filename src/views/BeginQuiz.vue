@@ -37,14 +37,13 @@ import BaseButton from '@/components/BaseButton.vue'
 import { useQuizStore } from '@/store/quiz'
 import { QuestionType } from '@/utils/types'
 import { computed, defineComponent, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'begin-quiz',
   components: { BaseInput, VariantCheckbox, BaseButton },
   setup() {
     const store = useQuizStore()
-    const route = useRoute()
     const router = useRouter()
     const answer = ref('')
     const checked = ref<number[]>([])
@@ -75,11 +74,12 @@ export default defineComponent({
         store.nextQuestion(checked.value)
       }
 
-      clearInput()
-
-      if (store.questions.length === store.questionIndex) {
+      if (store.questions.length - 1 === store.questionIndex) {
         store.answerAll()
-        router.push('/end-quiz/' + route.params.id)
+        router.push('/end-quiz')
+      } else {
+        clearInput()
+        store.patch({ questionIndex: store.questionIndex + 1 })
       }
     }
 
