@@ -1,3 +1,4 @@
+import { shuffleArray } from '@/utils/shuffleArray'
 import { timeout } from '@/utils/timeout'
 import { IQuiz, QuestionType, QuizType } from '@/utils/types'
 
@@ -12,7 +13,7 @@ export class QuizService {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       startedAt: Date.now() + 999999,
-      closesAt: Date.now() + 99999999,
+      closesAt: Date.now() + 9999999999,
       minsForCompletion: 45,
       questions: [
         {
@@ -25,6 +26,28 @@ export class QuizService {
             { id: 3, text: 'Extensible Markup Language' },
           ],
         },
+        {
+          id: 2,
+          text: 'Выберите всё, что является языком программирования',
+          type: QuestionType.MULTI,
+          variants: [
+            { id: 4, text: 'Visual Studio 2020' },
+            { id: 5, text: 'Visual Studio Code' },
+            { id: 6, text: 'HTML' },
+            { id: 7, text: 'Anaconda' },
+            { id: 8, text: 'NPM' },
+            { id: 9, text: 'Java' },
+            { id: 10, text: 'JavaScript' },
+            { id: 11, text: 'C#' },
+            { id: 12, text: 'Kotlin' },
+          ],
+        },
+        {
+          id: 3,
+          text: 'Сколько бит в одном байте?',
+          type: QuestionType.WRITTEN,
+          variants: [],
+        },
       ],
     },
   ]
@@ -34,9 +57,25 @@ export class QuizService {
     return this._quizes
   }
 
-  // fetch quiz info without questions if it is timed
+  // fetch quiz info without questions
   public async getQuiz(uid: string) {
     await timeout()
     return this._quizes.find((quiz) => quiz.uid === uid)
+  }
+
+  public async getQuizQuestions(uid: string) {
+    await timeout()
+    const quiz = this._quizes.find((quiz) => quiz.uid === uid)
+    if (!quiz) {
+      return
+    }
+    // Shuffle questions and answers
+    quiz.questions = quiz.questions.map((q) => ({
+      ...q,
+      variants: q.variants ? shuffleArray(q.variants) : q.variants,
+    }))
+    quiz.questions = shuffleArray(quiz.questions)
+
+    return quiz.questions
   }
 }

@@ -1,7 +1,6 @@
 export enum QuestionType {
   MULTI = 'MULTI',
   SINGLE = 'SINGLE',
-  BOOLEAN = 'BOOLEAN',
   WRITTEN = 'WRITTEN',
 }
 
@@ -21,7 +20,7 @@ export interface IQuestion {
   text: string
   pictures?: string[]
   type: QuestionType
-  variants?: IVariant[]
+  variants: IVariant[]
 }
 
 export interface IQuiz {

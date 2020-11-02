@@ -44,11 +44,7 @@
       >
         <font-awesome-icon :icon="['far', 'user']" />
       </base-input>
-      <base-button
-        :disabled="isJoinable"
-        @click="store.startQuiz(name)"
-        class="ml-4"
-      >
+      <base-button :disabled="isJoinable" @click="startTest" class="ml-4">
         Приступить
       </base-button>
     </div>
@@ -59,7 +55,7 @@
 <script lang="ts">
 import { useQuizStore } from '@/store/quiz'
 import { computed, defineComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
@@ -69,6 +65,7 @@ export default defineComponent({
   components: { BaseInput, BaseButton },
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const store = useQuizStore()
     const name = ref('')
 
@@ -78,9 +75,15 @@ export default defineComponent({
       return dayjs(timestamp).fromNow()
     }
 
+    function startTest() {
+      store.startQuiz(route.params.id as string, name.value)
+      router.push('/begin-quiz/' + route.params.id)
+    }
+
     return {
       store,
       formatDate,
+      startTest,
       name,
       isJoinable: computed(
         () =>
