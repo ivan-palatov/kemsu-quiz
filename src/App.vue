@@ -9,7 +9,7 @@
     </router-link>
     <div>
       <router-link
-        class="text-gray-100 tracking-wide text-base font-medium no-underline"
+        class="text-gray-100 tracking-wide text-base font-medium no-underline mr-4"
         to="/auth"
         >Войти
       </router-link>

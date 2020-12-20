@@ -79,7 +79,7 @@ export default defineComponent({
         router.push('/end-quiz')
       } else {
         clearInput()
-        store.patch({ questionIndex: store.questionIndex + 1 })
+        store.questionIndex += 1
       }
     }
 

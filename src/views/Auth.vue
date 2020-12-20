@@ -20,9 +20,17 @@
         </template>
       </base-input>
     </div>
+    <div class="mb-4">
+      <base-select
+        label="Тип пользователя"
+        name="user-type"
+        v-model:input="userType"
+        :variants="userTypes"
+      />
+    </div>
     <div class="flex justify-between">
-      <base-button>Войти</base-button>
-      <base-button>Зарегистрироваться</base-button>
+      <base-button @click="register">Войти</base-button>
+      <base-button @click="register">Зарегистрироваться</base-button>
     </div>
   </div>
 </template>
@@ -30,21 +38,41 @@
 <script lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import BaseInput from '@/components/BaseInput.vue'
+import BaseSelect from '@/components/BaseSelect.vue'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'auth-view',
-  components: { BaseInput, BaseButton },
+  components: { BaseInput, BaseButton, BaseSelect },
   setup() {
     const name = ref('')
     const password = ref('')
     const showPassword = ref(false)
+    const userType = ref('STUDENT')
+
+    const userTypes = [
+      { value: 'STUDENT', text: 'Студент' },
+      { value: 'TEACHER', text: 'Преподаватель' },
+    ]
 
     function togglePassword() {
       showPassword.value = !showPassword.value
     }
 
-    return { password, name, showPassword, togglePassword }
+    function register() {
+      localStorage.setItem('name', name.value)
+      localStorage.setItem('userType', userType.value)
+    }
+
+    return {
+      password,
+      name,
+      showPassword,
+      togglePassword,
+      userType,
+      userTypes,
+      register,
+    }
   },
 })
 </script>

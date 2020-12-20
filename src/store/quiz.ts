@@ -37,20 +37,18 @@ export const useQuizStore = defineStore({
         console.log('Quiz not found, need to display an error')
         return
       }
-      this.patch({ currentQuiz: quiz })
+      this.currentQuiz = quiz
     },
     async startQuiz(uid: string, name?: string) {
       if (name) {
         this.userName = name
       }
-      this.patch({
-        questions: await quizService.getQuizQuestions(uid),
-        questionIndex: 0,
-      })
+      this.questions = (await quizService.getQuizQuestions(uid))!
+      this.questionIndex = 0
     },
     nextQuestion(answer: number | number[] | string) {
       console.log(`POST: /answer/:id  {answer: ${answer}}`)
-      this.patch({
+      this.$patch({
         answers: {
           ...this.answers,
           [this.questions[this.questionIndex].id]: answer,

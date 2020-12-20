@@ -29,6 +29,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "quiz" */ '../views/EndQuiz.vue'),
   },
+  {
+    path: '/create-quiz',
+    name: 'CreateQuiz',
+    component: () =>
+      import(/* webpackChunkName: "teacher" */ '../views/CreateQuiz.vue'),
+  },
 ]
 
 const router = createRouter({
