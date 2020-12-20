@@ -9,7 +9,7 @@ export class QuizService {
       uid: 'wdh6q21',
       name: 'М-171 Разработка Мобильных Приложений',
       type: QuizType.PUBLIC,
-      author: 'ККК',
+      author: 'Иван',
       createdAt: Date.now(),
       updatedAt: Date.now(),
       startedAt: Date.now() + 999999,
@@ -52,15 +52,53 @@ export class QuizService {
     },
   ]
 
+  public async createQuiz(quiz: any) {
+    return true
+  }
+
+  public async editQuiz(id: number, quiz: any) {
+    return true
+  }
+
   public async getPublicQuizes() {
     await timeout()
     return this._quizes
+  }
+
+  public async getQuizes(user: string) {
+    await timeout()
+    return this._quizes.filter((q) => q.author === user)
   }
 
   // fetch quiz info without questions
   public async getQuiz(uid: string) {
     await timeout()
     return this._quizes.find((quiz) => quiz.uid === uid)
+  }
+
+  public async getQuizForTeacher(id: number) {
+    await timeout()
+    return this._quizes.find((quiz) => quiz.id === id)
+  }
+
+  public async deleteQuiz(id: number) {
+    await timeout()
+    return true
+  }
+
+  public async appointQuiz(
+    id: number,
+    testDate: string,
+    testTime: string,
+    timeLimit: number
+  ) {
+    await timeout()
+    return true
+  }
+
+  public async startQuiz(id: number, timeLimit: number) {
+    await timeout()
+    return true
   }
 
   public async getQuizQuestions(uid: string) {

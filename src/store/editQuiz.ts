@@ -24,7 +24,7 @@ interface IState {
 
 const quizService = new QuizService()
 
-export const useCreateQuiz = defineStore({
+export const useEditQuiz = defineStore({
   id: 'createQuiz',
   state: () =>
     ({
@@ -77,6 +77,18 @@ export const useCreateQuiz = defineStore({
         questions: this.questions,
       })
       await quizService.createQuiz({
+        name: this.name,
+        author: localStorage.getItem('name'),
+        questions: this.questions,
+      })
+    },
+    async fetchQuiz(id: number) {
+      const quiz = await quizService.getQuizForTeacher(id)
+      this.name = quiz!.name
+      this.questions = quiz!.questions as any
+    },
+    async editQuiz(id: number) {
+      await quizService.editQuiz(id, {
         name: this.name,
         author: localStorage.getItem('name'),
         questions: this.questions,

@@ -29,7 +29,7 @@
       />
     </div>
     <div class="flex justify-between">
-      <base-button @click="register">Войти</base-button>
+      <base-button @click="auth">Войти</base-button>
       <base-button @click="register">Зарегистрироваться</base-button>
     </div>
   </div>
@@ -39,12 +39,15 @@
 import BaseButton from '@/components/BaseButton.vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
+import { timeout } from '@/utils/timeout'
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'auth-view',
   components: { BaseInput, BaseButton, BaseSelect },
   setup() {
+    const router = useRouter()
     const name = ref('')
     const password = ref('')
     const showPassword = ref(false)
@@ -56,12 +59,28 @@ export default defineComponent({
     ]
 
     function togglePassword() {
+      console.log('HELLOOO')
       showPassword.value = !showPassword.value
     }
 
-    function register() {
+    async function register() {
       localStorage.setItem('name', name.value)
+      localStorage.setItem('password', password.value)
       localStorage.setItem('userType', userType.value)
+      await timeout(500)
+      router.push('/')
+      location.reload()
+    }
+
+    async function auth() {
+      if (
+        localStorage.getItem('name') === name.value &&
+        localStorage.getItem('password') === password.value
+      ) {
+        await timeout(500)
+        router.push('/')
+        location.reload()
+      }
     }
 
     return {
@@ -72,6 +91,7 @@ export default defineComponent({
       userType,
       userTypes,
       register,
+      auth,
     }
   },
 })

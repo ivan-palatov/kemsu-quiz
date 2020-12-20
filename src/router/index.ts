@@ -35,6 +35,24 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "teacher" */ '../views/CreateQuiz.vue'),
   },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () =>
+      import(/* webpackChunkName: "teacher" */ '../views/Dashboard.vue'),
+  },
+  {
+    path: '/quiz-info/:id',
+    name: 'QuizInfo',
+    component: () =>
+      import(/* webpackChunkName: "teacher" */ '../views/QuizInfo.vue'),
+  },
+  {
+    path: '/edit-quiz/:id',
+    name: 'Edit',
+    component: () =>
+      import(/* webpackChunkName: "teacher" */ '../views/Edit.vue'),
+  },
 ]
 
 const router = createRouter({

@@ -158,27 +158,32 @@
 </template>
 
 <script lang="ts">
-import { useCreateQuiz } from '@/store/createQuiz'
-import { computed, defineComponent } from 'vue'
+import { useEditQuiz } from '@/store/editQuiz'
+import { computed, defineComponent, onMounted } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseTextarea from '@/components/BaseTextarea.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: 'create-quiz-view',
+  name: 'edit-quiz-view',
   components: { BaseInput, BaseButton, BaseTextarea, BaseSelect, BaseCheckbox },
   setup() {
-    const store = useCreateQuiz()
+    const store = useEditQuiz()
     const router = useRouter()
+    const route = useRoute()
 
     const questionTypes = [
       { value: 'SINGLE', text: 'С одним ответом' },
       { value: 'MULTI', text: 'С несколькими ответами' },
       { value: 'WRITTEN', text: 'Без вариантов ответа' },
     ]
+
+    onMounted(() => {
+      store.fetchQuiz(parseInt(route.params.id as string))
+    })
 
     async function saveQuiz() {
       await store.saveQuiz()

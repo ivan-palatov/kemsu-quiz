@@ -57,6 +57,7 @@ export default defineComponent({
     name: { type: String, required: true },
     placeholder: { type: String, required: false },
   },
+  emits: ['update:input', 'click-trailing'],
   methods: {
     updateValue(value: string) {
       this.$emit('update:input', value)

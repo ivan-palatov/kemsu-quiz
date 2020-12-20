@@ -8,11 +8,27 @@
       >Быстрый тест
     </router-link>
     <div>
-      <router-link
-        class="text-gray-100 tracking-wide text-base font-medium no-underline mr-4"
-        to="/auth"
-        >Войти
-      </router-link>
+      <div v-if="user.name" class="flex">
+        <div v-if="user.type === 'TEACHER'">
+          <router-link
+            class="text-gray-100 tracking-wide text-base font-medium no-underline mr-4"
+            to="/dashboard"
+            >Панель Управления
+          </router-link>
+        </div>
+        <a
+          class="text-gray-100 tracking-wide text-base font-medium no-underline mr-4 cursor-pointer"
+          @click="logout"
+          >Выйти</a
+        >
+      </div>
+      <div v-else>
+        <router-link
+          class="text-gray-100 tracking-wide text-base font-medium no-underline mr-4"
+          to="/auth"
+          >Войти
+        </router-link>
+      </div>
     </div>
   </nav>
   <main>
@@ -23,6 +39,33 @@
     </router-view>
   </main>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const user = ref({
+      name: '',
+      type: '',
+    } as { name: string; type: string })
+
+    user.value.name = localStorage.getItem('name') ?? ''
+    user.value.type = localStorage.getItem('userType') ?? ''
+
+    function logout() {
+      localStorage.clear()
+      user.value = {
+        name: '',
+        type: '',
+      }
+    }
+
+    return { logout, user }
+  },
+})
+</script>
 
 <style lang="scss">
 .v-enter-active {
