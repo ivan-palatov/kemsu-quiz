@@ -1,4 +1,4 @@
-import { QuizService } from '@/services/quiz.service'
+import { quizService } from '@/services/quiz.service'
 import { IQuestion, IQuiz } from '@/utils/types'
 import { defineStore } from 'pinia'
 
@@ -11,9 +11,8 @@ interface IQuizState {
   answers: {
     [x: string]: number | number[] | string
   }
+  loading: boolean
 }
-
-const quizService = new QuizService()
 
 export const useQuizStore = defineStore({
   id: 'quiz',
@@ -25,11 +24,13 @@ export const useQuizStore = defineStore({
       questions: [],
       userName: null,
       answers: {},
+      loading: true,
     } as IQuizState),
   actions: {
     async fetchQuizes() {
       const quizes = await quizService.getPublicQuizes()
       this.quizes = quizes
+      this.loading = false
     },
     async fetchQuiz(uid: string) {
       const quiz = await quizService.getQuiz(uid)

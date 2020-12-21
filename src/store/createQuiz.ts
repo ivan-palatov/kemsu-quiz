@@ -1,4 +1,4 @@
-import { QuizService } from '@/services/quiz.service'
+import { quizService } from '@/services/quiz.service'
 import { QuestionType } from '@/utils/types'
 import { defineStore } from 'pinia'
 
@@ -21,8 +21,6 @@ interface IState {
   author: string
   questions: IQuestion[]
 }
-
-const quizService = new QuizService()
 
 export const useCreateQuiz = defineStore({
   id: 'createQuiz',

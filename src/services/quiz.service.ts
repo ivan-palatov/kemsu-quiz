@@ -2,7 +2,7 @@ import { shuffleArray } from '@/utils/shuffleArray'
 import { timeout } from '@/utils/timeout'
 import { IQuiz, QuestionType, QuizType } from '@/utils/types'
 
-export class QuizService {
+class QuizService {
   private _quizes: IQuiz[] = [
     {
       id: 1,
@@ -12,7 +12,7 @@ export class QuizService {
       author: 'Иван',
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      startedAt: Date.now() + 999999,
+      startedAt: Date.now() - 999999,
       closesAt: Date.now() + 9999999999,
       minsForCompletion: 45,
       questions: [
@@ -117,3 +117,5 @@ export class QuizService {
     return quiz.questions
   }
 }
+
+export const quizService = new QuizService()

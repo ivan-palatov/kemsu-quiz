@@ -29,26 +29,19 @@
       <span class="font-bold">Время на прохождение теста</span>:
       {{ store.currentQuiz.minsForCompletion }} минут
     </p>
-    <div
-      v-if="
-        store.currentQuiz.type === 'HIDDEN' ||
-        store.currentQuiz.type === 'PUBLIC'
-      "
-      class="flex mt-4 items-end mx-2"
-    >
+    <div class="flex justify-between items-end">
       <base-input
         placeholder="Иванов Иван"
         label="Ваши фамилия и имя"
         name="name"
-        v-model:input="name"
+        v-model:input.trim="name"
       >
         <font-awesome-icon :icon="['far', 'user']" />
       </base-input>
-      <base-button :disabled="isJoinable" @click="startTest" class="ml-4">
+      <base-button :disabled="!isJoinable" @click="startTest" class="ml-4">
         Приступить
       </base-button>
     </div>
-    <div v-else>Хей, нужно проверить, если юзер авторизирован</div>
   </div>
 </template>
 
@@ -88,8 +81,7 @@ export default defineComponent({
       isJoinable: computed(
         () =>
           dayjs(store.currentQuiz!.startedAt).isBefore(dayjs()) &&
-          (!store.currentQuiz!.closesAt ||
-            dayjs(store.currentQuiz!.closesAt).isAfter(dayjs()))
+          name.value.length > 1
       ),
     }
   },

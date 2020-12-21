@@ -42,10 +42,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'App',
   setup() {
+    const router = useRouter()
     const user = ref({
       name: '',
       type: '',
@@ -60,6 +62,7 @@ export default defineComponent({
         name: '',
         type: '',
       }
+      router.push('/')
     }
 
     return { logout, user }

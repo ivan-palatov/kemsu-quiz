@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col items-center justify-center" v-if="question">
     <div class="text-xl mb-4">{{ question.text }}</div>
-    <div v-if="question.type === 'WRITTEN'">
+    <div v-if="question.type === 'WRITTEN'" class="mb-16">
       <base-input v-model:input="answer" label="Ответ" name="answer">
         <font-awesome-icon :icon="['fas', 'pen']" />
       </base-input>
     </div>
-    <ul v-else>
+    <ul v-else class="mb-16">
       <li
         v-for="(variant, index) in question.variants"
         :key="variant.id"
@@ -43,8 +43,8 @@ export default defineComponent({
   name: 'begin-quiz',
   components: { BaseInput, VariantCheckbox, BaseButton },
   setup() {
-    const store = useQuizStore()
     const router = useRouter()
+    const store = useQuizStore()
     const answer = ref('')
     const checked = ref<number[]>([])
 

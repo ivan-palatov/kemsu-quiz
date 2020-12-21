@@ -171,8 +171,8 @@ export default defineComponent({
   name: 'create-quiz-view',
   components: { BaseInput, BaseButton, BaseTextarea, BaseSelect, BaseCheckbox },
   setup() {
-    const store = useCreateQuiz()
     const router = useRouter()
+    const store = useCreateQuiz()
 
     const questionTypes = [
       { value: 'SINGLE', text: 'С одним ответом' },

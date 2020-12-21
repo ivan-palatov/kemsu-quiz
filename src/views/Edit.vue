@@ -1,5 +1,14 @@
 <template>
-  <div class="flex flex-col items-center w-full px-2 md:max-w-md md:mx-auto">
+  <div class="flex justify-center pt-10" v-if="store.loading">
+    <font-awesome-icon
+      class="animate-spin text-5xl text-gray-900"
+      :icon="['fas', 'spinner']"
+    />
+  </div>
+  <div
+    class="flex flex-col items-center w-full px-2 md:max-w-md md:mx-auto"
+    v-else
+  >
     <div class="mb-4 w-full">
       <base-input
         placeholder="Лучший тест 2020"
@@ -159,21 +168,23 @@
 
 <script lang="ts">
 import { useEditQuiz } from '@/store/editQuiz'
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent } from 'vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseTextarea from '@/components/BaseTextarea.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
-import { useRoute, useRouter } from 'vue-router'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'edit-quiz-view',
   components: { BaseInput, BaseButton, BaseTextarea, BaseSelect, BaseCheckbox },
   setup() {
-    const store = useEditQuiz()
-    const router = useRouter()
     const route = useRoute()
+    const router = useRouter()
+    const store = useEditQuiz()
+
+    store.fetchQuiz(parseInt(route.params.id as string))
 
     const questionTypes = [
       { value: 'SINGLE', text: 'С одним ответом' },
@@ -181,14 +192,12 @@ export default defineComponent({
       { value: 'WRITTEN', text: 'Без вариантов ответа' },
     ]
 
-    onMounted(() => {
-      store.fetchQuiz(parseInt(route.params.id as string))
-    })
-
     async function saveQuiz() {
       await store.saveQuiz()
       router.push('/dashboard')
     }
+
+    onBeforeRouteLeave(() => store.$reset())
 
     return {
       store,

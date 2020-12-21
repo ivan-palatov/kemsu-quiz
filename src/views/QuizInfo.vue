@@ -34,7 +34,12 @@
       >
         <font-awesome-icon :icon="['far', 'clock']" />
       </base-input>
-      <base-button @click="startTest" class="mt-4">Запустить тест</base-button>
+      <base-button
+        :disabled="store.startLoading"
+        @click="startTest"
+        class="mt-4"
+        >Запустить тест</base-button
+      >
     </div>
     <div
       class="flex flex-col mt-4 items-stretch mx-2 border rounded p-2 border-gray-600 w-full"
@@ -70,7 +75,10 @@
       >
         <font-awesome-icon :icon="['far', 'clock']" />
       </base-input>
-      <base-button @click="appointTest" class="mt-4"
+      <base-button
+        :disabled="store.appointLoading"
+        @click="appointTest"
+        class="mt-4"
         >Назначить Тест</base-button
       >
     </div>
@@ -102,7 +110,7 @@
         </base-input>
         <base-button
           @click="deleteQuiz"
-          :disabled="isDeletable"
+          :disabled="isDeletable || store.deleteLoading"
           color="error"
           class="ml-4"
           >Удалить Тест</base-button
@@ -138,8 +146,11 @@ export default defineComponent({
       return dayjs(timestamp).fromNow()
     }
 
-    function startTest() {
-      store.startQuiz(parseInt(route.params.id as string), timeLimit.value)
+    async function startTest() {
+      await store.startQuiz(
+        parseInt(route.params.id as string),
+        timeLimit.value
+      )
       router.push('/monitor-quiz/' + route.params.id)
     }
 

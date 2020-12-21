@@ -1,4 +1,4 @@
-import { QuizService } from '@/services/quiz.service'
+import { quizService } from '@/services/quiz.service'
 import { QuestionType } from '@/utils/types'
 import { defineStore } from 'pinia'
 
@@ -20,17 +20,17 @@ interface IState {
   name: string
   author: string
   questions: IQuestion[]
+  loading: boolean
 }
 
-const quizService = new QuizService()
-
 export const useEditQuiz = defineStore({
-  id: 'createQuiz',
+  id: 'editQuiz',
   state: () =>
     ({
       name: '',
       author: localStorage.getItem('name') ?? '',
       questions: [],
+      loading: true,
     } as IState),
   actions: {
     addQuestion() {
@@ -83,9 +83,13 @@ export const useEditQuiz = defineStore({
       })
     },
     async fetchQuiz(id: number) {
-      const quiz = await quizService.getQuizForTeacher(id)
-      this.name = quiz!.name
-      this.questions = quiz!.questions as any
+      const { name, questions } = (await quizService.getQuizForTeacher(id))!
+      if (!name) {
+        console.log('Quiz not found, need to display an error')
+        this.loading = false
+        return
+      }
+      this.$patch({ name, questions, loading: false })
     },
     async editQuiz(id: number) {
       await quizService.editQuiz(id, {

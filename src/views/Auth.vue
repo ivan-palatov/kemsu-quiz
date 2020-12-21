@@ -68,8 +68,7 @@ export default defineComponent({
       localStorage.setItem('password', password.value)
       localStorage.setItem('userType', userType.value)
       await timeout(500)
-      router.push('/')
-      location.reload()
+      location.replace('/')
     }
 
     async function auth() {
@@ -78,8 +77,7 @@ export default defineComponent({
         localStorage.getItem('password') === password.value
       ) {
         await timeout(500)
-        router.push('/')
-        location.reload()
+        location.replace('/')
       }
     }
 

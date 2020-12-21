@@ -51,7 +51,7 @@ export default defineComponent({
   name: 'base-input',
   inheritAttrs: false,
   props: {
-    input: String,
+    input: [String, Number],
     label: { type: String, required: true },
     error: { type: String, required: false },
     name: { type: String, required: true },
