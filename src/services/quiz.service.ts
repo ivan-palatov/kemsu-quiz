@@ -57,7 +57,7 @@ export class QuizService {
   }
 
   public async editQuiz(id: number, quiz: any) {
-    return false
+    return true
   }
 
   public async getPublicQuizes() {
