@@ -4,26 +4,20 @@
 
 https://wonderful-darwin-ebfce1.netlify.app/
 
-## Project setup
+## Установка
 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Компиляция и hot-reload для разработки
 
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Компиляция и минифицирование для продакшена
 
 ```
 yarn build
-```
-
-### Lints and fixes files
-
-```
-yarn lint
 ```
